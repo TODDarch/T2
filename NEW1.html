@@ -1,27 +1,78 @@
 <html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#vb input[name=User]').click(function(){
+        //$(this).hide();
+		alert($(this).parent().parent().find('input[name=rowId]').val());
+    });
+});
+</script>
+</head>
 
+<body>
 <div id="dataDiv"></div>
 <div id="vb">
 	<div name="row-0">
+		<div hidden name="rowId">
+			<input type="hidden" name="rowId" value="0"/>
+		</div>
 		<div class="">
-			<input name="name" value=""/>
-			<input name="age" value=""/>
-			<input name="addr" value="" / > 
+			<input name="User" value=""/>
 		</div>
 		<div>
-			<input name="name" value=""/>
 			<input name="age" value=""/>
-			<input name="addr" value=""/>
 		</div>
 		<div>
-			<input name="name" value=""/>
-			<input name="age" value=""/>
 			<input name="addr" value=""/>
 		</div>
 	</div>
 	<div name="row-1">
-		
+		<div hidden name="rowId">
+			<input type="hidden" name="rowId" value="1"/>
+		</div>
+		<div class="">
+			<input name="User" value=""/>
+		</div>
+		<div>
+			<input name="age" value=""/>
+		</div>
+		<div>
+			<input name="addr" value=""/>
+		</div>
 	</div>
 </div>
-
+<br/>
+<div id="bj">
+	<div name="row-0">
+		<div hidden name="rowId">
+			<input type="hidden" name="rowId" value="0"/>
+		</div>
+		<div class="">
+			<input name="dt1" value=""/>
+		</div>
+		<div class="">
+			<input name="dt2" value=""/>
+		</div>
+		<div class="">
+			<input name="dt3" value=""/>
+		</div>
+	</div>
+	<div name="row-1">
+		<div hidden name="rowId">
+			<input type="hidden" name="rowId" value="1"/>
+		</div>
+		<div class="">
+			<input name="dt1" value=""/>
+		</div>
+		<div class="">
+			<input name="dt2" value=""/>
+		</div>
+		<div class="">
+			<input name="dt3" value=""/>
+		</div>
+	</div>
+</div>
+</body>
 </html>
