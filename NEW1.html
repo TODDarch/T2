@@ -1,96 +1,7 @@
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $('#vb input[name=User]').click(function(){
-        //$(this).hide();
-		alert($(this).parent().parent().find('input[name=rowId]').val());
-    });
-});
-</script>
-</head>
-
-<body>
-<div id="dataDiv"></div>
-<div id="vb">
-	<div name="row-0">
-		<div hidden name="rowId">
-			<input type="hidden" name="rowId" value="0"/>
-		</div>
-		<div class="">
-			<input name="User" value=""/>
-		</div>
-		<div>
-			<input name="age" value=""/>
-		</div>
-		<div>
-			<input name="addr" value=""/>
-		</div>
-	</div>
-	<div name="row-1">
-		<div hidden name="rowId">
-			<input type="hidden" name="rowId" value="1"/>
-		</div>
-		<div class="">
-			<input name="User" value=""/>
-		</div>
-		<div>
-			<input name="age" value=""/>
-		</div>
-		<div>
-			<input name="addr" value=""/>
-		</div>
-	</div>
-</div>
-<br/>
-<div id="bj">
-	<div name="row-0">
-		<div hidden name="rowId">
-			<input type="hidden" name="rowId" value="0"/>
-		</div>
-		<div class="">
-			<input name="dt1" value=""/>
-		</div>
-		<div class="">
-			<input name="dt2" value=""/>
-		</div>
-		<div class="">
-			<input name="dt3" value=""/>
-		</div>
-	</div>
-	<div name="row-1">
-		<div hidden name="rowId">
-			<input type="hidden" name="rowId" value="1"/>
-		</div>
-		<div class="">
-			<input name="dt1" value=""/>
-		</div>
-		<div class="">
-			<input name="dt2" value=""/>
-		</div>
-		<div class="">
-			<input name="dt3" value=""/>
-		</div>
-	</div>
-</div>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
 @model AnnualLeaveScheduleV1.ViewModels.Voucher.IndexViewModel
-@{  
+@{
     ViewBag.Title = "新增傳票檔";
-    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("ja-JP");
+    //System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("ja-JP");
 }
 
 @*STYLING*@
@@ -291,22 +202,12 @@ $(document).ready(function(){
     }
 </style>
 
-@*<script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>*@
-@*<script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="../Scripts/VoucherIndex.js"></script>
 <script>
-    onfoACBDrow = function () {
-        alert($(this).find('input[name=rowId]').val());
-        //var rownum = $(this).children('div input').find('input[name=rowId]').val();
-        //alert(rownum);
-        //
-        //$('#dataId').val(rownum);
-        ////var bjData = $('#ac8032-bj div[name=body] div[name*=row]').
-        //function() {
-            //var rowNum = this.parent().parent().find('input[name=rowId]').val();
-            //alert(rowNum);
-        //}
-    }
     function create() {
         alert('create hit!');
 
@@ -350,7 +251,7 @@ $(document).ready(function(){
     //    //REPLACE FUNCTION ARGUMENT(S)//
     //    newDivRowHtml = newDivRowHtml.replace('vbACIDchange(0', 'vbACIDchange(' + newRowNumber.toString());
     //    newDivRowHtml = newDivRowHtml.replace('vbSBIDchange(0', 'vbSBIDchange(' + newRowNumber.toString());
-        
+
     //    ////$('div#ac8032-vb div[name=body] div[name=row]').last().html(lastRow.html().replace(re,'['+ newRowNumber +']'));
     //    ////console.log($('div#ac8032-vb div[name=body] div[name=row]').last().html());
     //    //$('div#ac8032-vb div[name=body] div[name*=row]').last().html(newRow);
@@ -381,7 +282,7 @@ let tpid = ($('#TPID').val());
         jQuery.get('@Url.Action("QuerySBNM", "Voucher")', data, 'json')
                 .done(function (data) {
                     jQuery('div#ac8032-vh #SBID-chName').val(data.data);
-                    console.log(data.data);
+                    //console.log(data.data);
 	            }).fail(function () {
 		            alert('作業異常!')
                 }).always(function () {
@@ -457,7 +358,7 @@ let tpid = ($('#TPID').val());
 
 @*HTML BODY*@
 <h2>傳票</h2>
-@using (Html.BeginForm("Create", "Voucher", FormMethod.Post))
+@using (Html.BeginForm("Create", "Voucher", FormMethod.Post, new { @id="fform"}))
 {
     @Html.AntiForgeryToken()
     <div id="ac8032">
@@ -473,14 +374,15 @@ let tpid = ($('#TPID').val());
                     <div class="form-inline">
                         <div class="form-group col-md-3 left-col">
                             <label for="DATE" class="">日期</label>
-                            <input type="text" name="DATE" class="form-control" id="DATE" value="@DateTime.Today.GetDateTimeFormats(culture)[4]" onchange="TPIDchange()">
+                            <input type="text" name="DATE" class="form-control" id="DATE" value="@Model.DATE.GetDateTimeFormats(new System.Globalization.CultureInfo("ja-JP"))[4]" onchange="TPIDchange()">
+                            @*<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>*@
                             @*@Html.ValidationMessageFor(model => model.DATE, "", new { @class = "text-danger" })*@
                         </div>
                         <div class="col-md-6 form-group middle-col">
                             <label for="SBID">性質</label>
                             <div class="form-inline">
                                 <input type="text" name="SBID" class="form-control" id="SBID" placeholder="" onchange="achdSBIDchange(this.value)" value="@Model.SBID">
-                                <input type="text" name="SBID-chName" id="SBID-chName" value="" class="form-control" style="" readonly="readonly"/>
+                                <input type="text" name="SBID-chName" id="SBID-chName" value="" class="form-control" style="" readonly="readonly" />
                             </div>
                             @Html.ValidationMessageFor(model => model.SBID, "", new { @class = "text-danger" })
                         </div>
@@ -496,7 +398,7 @@ let tpid = ($('#TPID').val());
                         <div class="form-group col-md-3 left-col">
                             <label for="TPID" class="">傳票</label>
                             <select name="TPID" class="form-control" id="TPID" onchange="TPIDchange()">
-                                <option value="請選擇" @((Model.TPID == "" | Model.TPID ==null) ? "seleted" : "") >請選擇</option>
+                                <option value="請選擇" @((Model.TPID == "" | Model.TPID == null) ? "seleted" : "")>請選擇</option>
                                 <option value="現入" @(Model.TPID == "現入" ? "seleted" : "")>現入</option>
                                 <option value="現支" @(Model.TPID == "現支" ? "seleted" : "")>現支</option>
                                 <option value="轉帳" @(Model.TPID == "轉帳" ? "seleted" : "")>轉帳</option>
@@ -631,30 +533,30 @@ let tpid = ($('#TPID').val());
                         </div>
                     </div>
                     <div name="body">
-                        <div name="row-0" onfocusout="onfoACBDrow()">
-                            <div class="form-group" style="display:none">
-                                <input type="hidden" class="rowId" name="rowId" value="0" />
-                            </div>
+                        <div name="row-0" class="row-">
+                            @*<div class="form-group" style="display:none">*@
+                                @*<input type="hidden" class="rowId" name="rowId" value="0" />*@
+                            @*</div>*@
                             <div class="form-group left-col">
-                                <input type="text" class="field-acid" name="ACBDList[0].ACID" onchange="vbACIDchange(0,this.value)"/>
+                                <input type="text" class="field-acid" name="ACBDList[0].ACID" onchange="vbACIDchange(0,this.value)" onfocus="onVbACIDfocus(0)" />
                             </div>
                             <div class="form-group middle-col">
-                                <input type="text" class="field-acidname" name="ACBDList[0].ACID_NAME" value="" readonly="readonly"/>
+                                <input type="text" class="field-acidname" name="ACBDList[0].ACID_NAME" value="" readonly="readonly" />
                             </div>
                             <div class="form-group middle-col">
-                                <input type="text" class="field-sbid" name="ACBDList[0].SBID" acid="" onchange="vbSBIDchange(0,$(this).attr('acid'),this.value)" value=""/>
+                                <input type="text" class="field-sbid" name="ACBDList[0].SBID" acid="" onchange="vbSBIDchange(0,$(this).attr('acid'),this.value)" value="" />
                             </div>
                             <div class="form-group middle-col">
-                                <input type="text" class="field-sbidname" name="ACBDList[0].SBID_NAME" value="" readonly="readonly"/>
+                                <input type="text" class="field-sbidname" name="ACBDList[0].SBID_NAME" value="" readonly="readonly" />
                             </div>
                             <div class="form-group middle-col">
-                                <input type="text" class="field-sqno" name="ACBDList[0].SQNO" value="" readonly="readonly"/>
+                                <input type="text" class="field-sqno" name="ACBDList[0].SQNO" value="" readonly="readonly" />
                             </div>
                             <div class="form-group middle-col">
                                 <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[0].ITID" onchange="vbITIDchange(0, $(this).attr('acid'), $(this).attr('sbid'), this.value)" />
                             </div>
                             <div class="form-group middle-col">
-                                <input type="text" class="field-itidname" name="ACBDList[0].ITID_NAME" value="" readonly="readonly"/>
+                                <input type="text" class="field-itidname" name="ACBDList[0].ITID_NAME" value="" readonly="readonly" />
                             </div>
                             <div class="form-group middle-col">
                                 <input type="text" class="field-note" name="ACBDList[0].NOTE" value="" />
@@ -667,75 +569,75 @@ let tpid = ($('#TPID').val());
                             </div>
                         </div>
                         @*<div name="row-1">
-                            <div class="form-group" style="display:none">
-                                <input type="hidden" class="rowId" name="rowId" value="1" />
+                                <div class="form-group" style="display:none">
+                                    <input type="hidden" class="rowId" name="rowId" value="1" />
+                                </div>
+                                <div class="form-group left-col">
+                                    <input type="text" class="field-acid" name="ACBDList[1].ACID" onchange="vbACIDchange(1,this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-acidname" name="ACBDList[1].ACID_NAME" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbid" name="ACBDList[1].SBID" acid="" value="" onchange="vbSBIDchange(1,$(this).attr('acid'),this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbidname" name="ACBDList[1].SBID_NAME" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sqno" name="ACBDList[1].SQNO" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[1].ITID" value="" onchange="vbITIDchange(1, $(this).attr('acid'), $(this).attr('sbid'), this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itidname" name="ACBDList[1].ITID_NAME" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-note" name="ACBDList[1].NOTE" value="" />
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-damt" name="ACBDList[1].DAMT" value="" />
+                                </div>
+                                <div class="form-group right-col">
+                                    <input type="text" class="field-camt" name="ACBDList[1].CAMT" value="" />
+                                </div>
                             </div>
-                            <div class="form-group left-col">
-                                <input type="text" class="field-acid" name="ACBDList[1].ACID" onchange="vbACIDchange(1,this.value)"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-acidname" name="ACBDList[1].ACID_NAME" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-sbid" name="ACBDList[1].SBID" acid="" value="" onchange="vbSBIDchange(1,$(this).attr('acid'),this.value)"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-sbidname" name="ACBDList[1].SBID_NAME" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-sqno" name="ACBDList[1].SQNO" value="" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[1].ITID" value="" onchange="vbITIDchange(1, $(this).attr('acid'), $(this).attr('sbid'), this.value)"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-itidname" name="ACBDList[1].ITID_NAME" value="" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-note" name="ACBDList[1].NOTE" value="" />
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-damt" name="ACBDList[1].DAMT" value="" />
-                            </div>
-                            <div class="form-group right-col">
-                                <input type="text" class="field-camt" name="ACBDList[1].CAMT" value="" />
-                            </div>
-                        </div>
-                        <div name="row-2">
-                            <div class="form-group" style="display:none">
-                                <input type="hidden" class="rowId" name="rowId" value="2" />
-                            </div>
-                            <div class="form-group left-col">
-                                <input type="text" class="field-acid" name="ACBDList[2].ACID" onchange="vbACIDchange(2,this.value)"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-acidname" name="ACBDList[2].ACID_NAME" value="" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-sbid" name="ACBDList[2].SBID" value="" acid="" onchange="vbSBIDchange(2,$(this).attr('acid'),this.value)"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-sbidname" name="ACBDList[2].SBID_NAME" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-sqno" name="ACBDList[2].SQNO" value="" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[2].ITID" value="" onchange="vbITIDchange(2, $(this).attr('acid'), $(this).attr('sbid'), this.value)" />
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-itidname" name="ACBDList[2].ITID_NAME" value="" readonly="readonly"/>
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-note" name="ACBDList[2].NOTE" value="" />
-                            </div>
-                            <div class="form-group middle-col">
-                                <input type="text" class="field-damt" name="ACBDList[2].DAMT" value="" />
-                            </div>
-                            <div class="form-group right-col">
-                                <input type="text" class="field-camt" name="ACBDList[2].CAMT" value="" />
-                            </div>
-                        </div>*@
+                            <div name="row-2">
+                                <div class="form-group" style="display:none">
+                                    <input type="hidden" class="rowId" name="rowId" value="2" />
+                                </div>
+                                <div class="form-group left-col">
+                                    <input type="text" class="field-acid" name="ACBDList[2].ACID" onchange="vbACIDchange(2,this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-acidname" name="ACBDList[2].ACID_NAME" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbid" name="ACBDList[2].SBID" value="" acid="" onchange="vbSBIDchange(2,$(this).attr('acid'),this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbidname" name="ACBDList[2].SBID_NAME" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sqno" name="ACBDList[2].SQNO" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[2].ITID" value="" onchange="vbITIDchange(2, $(this).attr('acid'), $(this).attr('sbid'), this.value)" />
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itidname" name="ACBDList[2].ITID_NAME" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-note" name="ACBDList[2].NOTE" value="" />
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-damt" name="ACBDList[2].DAMT" value="" />
+                                </div>
+                                <div class="form-group right-col">
+                                    <input type="text" class="field-camt" name="ACBDList[2].CAMT" value="" />
+                                </div>
+                            </div>*@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -748,123 +650,85 @@ let tpid = ($('#TPID').val());
             </div>
 
             <div id="data-house">
-                <input type="text" name="rowId" id="dataId" value="K"/>
-                <div id="acbj"></div>
-            </div>
+                @*<input type="text" name="rowId" id="dataId" value="K" />*@
+                <input type="text" name="currRowId" id="currRowId" value="00" />
+                <div id="data-house-acbj">
+                    <input type="text" name="ACBJList" value="" />
+                    <input type="text" name="ACBJListStr" value="" />
+                    <input type="text" name="ACBJListJson" value="" />
+                    @*<input type="text" name="row" value="" />*@
+                </div>
+        </div>
 
-            @*voucher BJ*@
-            <div id="ac8032-bj">
-                <div class="row">
-                    <div class="form-inline">
-                        <div name="head">
-                            <div class="form-group rowId" style="display:none">
-                                <label></label>
-                            </div>
-
-                            <div class="form-group lb-field-pjid">
-                                <label>計畫編號</label>
-                            </div>
-
-                            <div class="form-group lb-field-pjsq">
-                                <label>序號</label>
-                            </div>
-
-                            <div class="form-group lb-field-damt">
-                                <label>借方金額</label>
-                            </div>
-                            <div class="form-group lb-field-camt">
-                                <label>貸方金額</label>
-                            </div>
-
-                            <div class="form-group lb-field-ivam">
-                                <label>未稅金額</label>
-                            </div>
-
-                            <div class="form-group lb-field-ivid">
-                                <label>部門/發票號碼</label>
-                            </div>
-                        </div>
-                        <div name="body">
-                            <div name="row-0">
-                                <div class="display:none">
-                                    <input type="hidden" class="rowId" name="rowId" value="0" disabled />
-                                </div>
-                                <div class="form-group middle-col">
-                                    <input type="text" class="field-pjid" name="ACBJList[0].PJID" value="" />
-                                </div>
-                                <div class="form-group middle-col">
-                                    <input type="text" class="field-pjsq" name="ACBJList[0].PJSQ" value="" readonly="readonly"/>
-                                </div>
-                                <div class="form-group middle-col">
-                                    <input type="text" class="field-damt" name="ACBJList[0].DAMT" value="" />
-                                </div>
-                                <div class="form-group middle-col">
-                                    <input type="text" class="field-camt" name="ACBJList[0].CAMT" value="" />
-                                </div>
-                                <div class="form-group middle-col">
-                                    <input type="text" class="field-ivam" name="ACBJList[0].IVAM" value="" />
-                                </div>
-                                <div class="form-group middle-col">
-                                    <input type="text" class="field-ivid" name="ACBJList[0].IVID" value="" />
-                                </div>
-                            </div>
-                            @*<div name="row-1">                                                                                    *@
-                            @*    <div class="display:none">                                                                        *@
-                            @*        <input type="hidden" class="rowId" name="rowId" value="1" disabled />                         *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-pjid" name="ACBJList[1].PJID" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-pjsq" name="ACBJList[1].PJSQ" value="" readonly="readonly"/>  *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-damt" name="ACBJList[1].DAMT" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-camt" name="ACBJList[1].CAMT" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-ivam" name="ACBJList[1].IVAM" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-ivid" name="ACBJList[1].IVID" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*</div>                                                                                                *@
-                            @*<div name="row-2">                                                                                    *@
-                            @*    <div class="display:none">                                                                        *@
-                            @*        <input type="hidden" class="rowId" name="rowId" value="2" disabled />                         *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-pjid" name="ACBJList[2].PJID" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-pjsq" name="ACBJList[2].PJSQ" value="" readonly="readonly"/>  *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-damt" name="ACBJList[2].DAMT" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-camt" name="ACBJList[2].CAMT" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-ivam" name="ACBJList[2].IVAM" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*    <div class="form-group middle-col">                                                               *@
-                            @*        <input type="text" class="field-ivid" name="ACBJList[2].IVID" value="" />                     *@
-                            @*    </div>                                                                                            *@
-                            @*</div>                                                                                                *@
-                        </div>                                                                                                      
+        @*voucher BJ*@
+                    <div id="ac8032-bj">
                         <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-default" value="新增" onclick="addRowACBJ()">新增</button>
+                            <div class="form-inline">
+                                <div name="head">
+                                    <div class="form-group rowId" style="display:none">
+                                        <label></label>
+                                    </div>
+
+                                    <div class="form-group lb-field-pjid">
+                                        <label>計畫編號</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-pjsq">
+                                        <label>序號</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-damt">
+                                        <label>借方金額</label>
+                                    </div>
+                                    <div class="form-group lb-field-camt">
+                                        <label>貸方金額</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-ivam">
+                                        <label>未稅金額</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-ivid">
+                                        <label>部門/發票號碼</label>
+                                    </div>
+                                </div>
+                                <div name="body">
+                                    <div id="ac8032-bj-body">
+                                        <div name="row-0">
+                                            <div class="display:none">
+                                                <input type="hidden" class="rowId" name="rowId" value="0" disabled />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-pjid" name="ACBJList[0].PJID" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-pjsq" name="ACBJList[0].PJSQ" value="" readonly="readonly" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-damt" name="ACBJList[0].DAMT" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-camt" name="ACBJList[0].CAMT" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-ivam" name="ACBJList[0].IVAM" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-ivid" name="ACBJList[0].IVID" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default" value="新增" onclick="addRowACBJ()">新增</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        </div>
+                </div>
         <br />
 
         @*VALIDATE BALENCE*@
@@ -957,18 +821,9 @@ let tpid = ($('#TPID').val());
 @*SCRIPT*@
 <script type="text/javascript">
     $(document).ready(function () {
-        //$('#DATE').datetimepicker();
-        acbjArr = [];
 
-        //jQuery('#ac8032-vh [name=SBID]').focusout(function () {
-        //    //alert('focusout');
-        //    //TODO...
-        //    //jQuery.get('')
-        //    jQuery('#ac8032-vh #SBID-chName').val('郵政劃撥帳戶');
-        //
-        //    //jQuery('#vchbdAddRow').click(function () { alert('12345') });
-        //    //jQuery('#vchbjAddRow').on('click', function () { return 0; });
-        //});
+        $('#DATE').datepicker({ format: "yyyy-mm-dd", autoclose: true });
+        acbjArr = [];
 
         //jQuery('#validate-panel [name=DC-blns]').change(function () {
         //    if ($(this).val() == 'x' || $(this).val() == 'X') {
@@ -1069,6 +924,7 @@ let tpid = ($('#TPID').val());
         });
 
         $('form').on('submit', function () {
+            
         });
 
         //$('form').on('')
@@ -1113,8 +969,79 @@ let tpid = ($('#TPID').val());
         //});
 
         //document.addEventListener("D",)
-        //document.getElementById("").addEventListener
-        //document.getElementsByName("")
-        //$('#ac8032-vb div[name*=row]')
+        //document.getElementsByName("row")//.getElementById("").addEventListener
+        //$(eleS).each(function (this) {
+        //    this.addEventListener('focus',alert('foCS!!'))
+        //})
+        ////$('#ac8032-vb div[name*=row]')
+        //$('#ac8032-vb input[name*=ACID]').on('blur', function (e) {
+        //    alert(e.name);
+        //    //alert(e.name);
+        //    //console.log(e.parent().parent().find('input[name=rowId]').val());
+        //})
+        //console.log(document.getElementById('ac8032-bj-body').length);
+        document.getElementById('ac8032-bj-body').addEventListener('focusout', function (e) {
+            var elements = $('#ac8032-bj-body input');
+            var obj = {};
+            for (var i = 0; i < elements.length; i++) {
+                obj[elements[i].name] = elements[i].value;
+            }
+            var dataStr = JSON.stringify(obj);
+            //console.log('dataStr:' + dataStr);
+            var findrow = $('#data-house #data-house-acbj #row-' + $('#currRowId').val()).length;
+            if (findrow === 0) {
+                var htmlrow = '<div id="row-' + $('#currRowId').val() + '"></div>';
+                console.log(htmlrow);
+                $('#data-house #data-house-acbj').append(htmlrow);
+                console.log(dataStr);
+                $('#data-house #data-house-acbj #row-' + $('#currRowId').val()).html(dataStr);
+                //alert('done');
+            }
+            else {
+                $('#data-house #data-house-acbj #row-' + $('#currRowId').val()).html(dataStr);
+            }
+
+            //INPUT ELEMENT//
+            var dataCount = $('#data-house #data-house-acbj div').length;
+            //console.log(datac);
+            var ListStr = "";
+            //var inputEleHtmlJson = '<input name=ACBJListJson />';
+            //$('#data-house-acbj').append(inputEleHtml);
+            //var inputEleHtmlStr = '<input type=text name=ACBJListStr />';
+            //$('#data-house-acbj').append(inputEleHtmlStr);
+            for (var i = 0; i < dataCount; i++) {
+                ListStr += $('#data-house-acbj #row-' + i).html();
+            }
+            //$('#data-house-acbj input[name=ACBJListStr]').val(inputEleHtmlStr);
+            $('#data-house-acbj input[name=ACBJListStr]').val(ListStr.replace('"rowId":"",',''));
+            //var ListJson = $('#data-house-acbj ')
+
+            var jjson = {};
+            for (var i = 0; i < dataCount; i++) {
+                ListStr += $('#data-house-acbj #row-' + i).html();
+            }
+            //INPUT ELEMENT//END//
+        }, false);
+        ////TESTING..//
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////$('#row-0').val($('#ac8032-bj input').serialize());
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //var elements = $('#ac8032-bj input');
+        //var obj = {};
+        //for (var i = 0; i < elements.length; i++) {
+        //    obj[(elements[i].name)] = elements[i].value;
+        //}
+        //var jj = JSON.stringify(obj);
+        //$('#row-0-t').val(jj);
+        //
+        //$('#row-0').val(jj);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////$.parseJSON($('#row-0').val());
+        //console.log(jj);
+        //console.log(obj);
+
+        document.getElementById("fform").addEventListener('submit', function (e) {
+            alert('B4 SUNMIT!');
+        });
     });
 </script>
