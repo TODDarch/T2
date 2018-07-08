@@ -1,0 +1,1044 @@
+@model AnnualLeaveScheduleV1.ViewModels.Voucher.IndexViewModel
+@{
+    ViewBag.Title = "新增傳票檔";
+    //System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("ja-JP");
+}
+
+STYLING
+<style>
+    fieldset {
+        border: 1px solid gray;
+        border-top: 1px solid black;
+    }
+    h2 {
+        font-family: 'Microsoft JhengHei UI';
+    }
+    #ac8032-whole-vcher {
+        font-family: 'Microsoft JhengHei';
+        border: 1px solid black;
+        z-index: 0;
+    }
+    .form-inline {
+        align-items: center;
+    }
+        .form-inline .form-control {
+            width: 100%;
+        }
+    div#ac8032-vh {
+        /*border-top-left-radius: 8.5px;*/
+        /*border-top-right-radius: 8.5px;*/
+        /*background:url();*/
+        background-color: antiquewhite; /**/
+        border: 1.5px solid #f2c993; /*E1D3C1*/
+        padding: 4px 4px 4px 4px;
+    }
+        div#ac8032-vh .form-group.left-col {
+            padding-left: 15px;
+            padding-right: 1px;
+        }
+        div#ac8032-vh .form-group.middle-col {
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+        div#ac8032-vh .form-group.right-col {
+            padding-left: 1px;
+            padding-right: 15px;
+        }
+    div#ac8032-temp-input {
+        border-radius: 0px;
+        /*background:url();*/
+        background-color: antiquewhite;
+        padding: 1px 4px 4px 4px;
+    }
+    div#ac8032-vb {
+        border-radius: 0px;
+        background-color: #bfffbf; /*;*/
+        padding: 1px 4px 4px 4px;
+        border: 1.5px solid;
+        border-color: #bfffbf; /*E1D3C1*/
+        height: 181px;
+        overflow: auto;
+    }
+        div#ac8032-vb .form-inline {
+            padding-left: 15px;
+        }
+        div#ac8032-vb .field-acid, div#ac8032-vb .lb-field-acid {
+            width: 56px;
+        }
+        div#ac8032-vb .field-acidname, div#ac8032-vb .lb-field-acidname {
+            width: 96px;
+        }
+        div#ac8032-vb .field-sbid, div#ac8032-vb .lb-field-sbid {
+            width: 28px;
+        }
+        div#ac8032-vb .field-sbidname, div#ac8032-vb .lb-field-sbidname {
+            width: 96px;
+        }
+        div#ac8032-vb .field-sqno, div#ac8032-vb .lb-field-sqno {
+            width: 36px;
+        }
+        div#ac8032-vb .field-itid, div#ac8032-vb .lb-field-itid {
+            width: 96px;
+        }
+        div#ac8032-vb .field-itidname, div#ac8032-vb .lb-field-itidname {
+            width: 56px;
+        }
+        div#ac8032-vb .field-note, div#ac8032-vb .lb-field-note {
+            width: 282px;
+        }
+        div#ac8032-vb .field-damt, div#ac8032-vb .lb-field-damt {
+            width: 160px;
+        }
+        div#ac8032-vb .field-camt, div#ac8032-vb .lb-field-camt {
+            width: 160px;
+        }
+    div#ac8032-bj {
+        border-radius: 0px;
+        background-color: #d4eaff; /*#ffe1ff; antiquewhite;*/
+        padding: 4px 4px 4px 4px;
+        border: 0px solid;
+        /*border-color:; /*dodgerblueE1D3C1 ffe1ff*/
+        height: 177px;
+        overflow: auto;
+    }
+        div#ac8032-bj .form-inline {
+            padding-left: 15px;
+        }
+        div#ac8032-bj .field-pjid, div#ac8032-bj .lb-field-pjid {
+            width: 101px;
+        }
+        div#ac8032-bj .field-pjsq, div#ac8032-bj .lb-field-pjsq {
+            width: 54px;
+        }
+        div#ac8032-bj .field-damt, div#ac8032-bj .lb-field-damt {
+            width: 101px;
+        }
+        div#ac8032-bj .field-camt, div#ac8032-bj .lb-field-camt {
+            width: 101px;
+        }
+        div#ac8032-bj .field-ivam, div#ac8032-bj .lb-field-ivam {
+            width: 101px;
+        }
+        div#ac8032-bj .field-ivid, div#ac8032-bj .lb-field-ivid {
+            width: 101px;
+        }
+    div#act {
+        text-align: right;
+    }
+    div#ac8032 #validate-panel {
+        border-radius: 8.5px;
+        background-color: antiquewhite;
+        border: 1.5px solid #f2c993; /*E1D3C1*/
+        padding: 4px 4px 4px 4px;
+    }
+        div#ac8032 #validate-panel .form-group.left-col {
+            padding-left: 15px;
+            padding-right: 1px;
+        }
+        div#ac8032 #validate-panel .form-group.middle-col {
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+        div#ac8032 #validate-panel .form-group.right-col {
+            padding-left: 1px;
+            padding-right: 15px;
+        }
+    .red-bg {
+        background-color: orangered;
+    }
+    /*[name=button-border-]*/
+    .active-button {
+        border: 1.9px solid darkorange;
+        border-radius: 5px;
+    }
+    .rowId {
+        width: 23px;
+    }
+    .addrow {
+        padding-left: 38px;
+    }
+    div#ac8032-vb [readonly], div#ac8032-bj [readonly] {
+        background-color: #eee;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="../Scripts/VoucherIndex.js"></script>
+<script>
+    function create() {
+        alert('create hit!');
+        jQuery.post('@Url.Action("Create", "Voucher")', data, 'html')
+		.done(function (data) {
+            alert('fone');
+            alert(data);
+            //$('#newDateList').html(data);
+			////COLOR THE NEW DATES//
+			//$('#newDateList').addClass('css-newDateList');
+			//calculateTotalHours();
+			////alert('修改時數後請按[存檔]!');
+			//$("#btnSaveDates").show();
+		})
+		.fail(function () {
+			alert('作業異常! ')
+			//$("#newDateList").html("");
+			//$('#CurrentMonthHours').val("0");
+			//$("#btnSaveDates").hide();
+		}).always(function () {
+		});
+    }
+    //function addRowACBD() {
+    //    var matchNumArr = $('div#ac8032-vb div[name*=row-]').last().attr('name').match(/\d/gm);
+    //    let rowNumber = parseInt(matchNumArr[0]);
+    //    let rowHtml = $('div#ac8032-vb div[name=body] div[name=row-0]').html();
+    //    //FIND LAST ROW#//
+    //    let lastRow = $('div#ac8032-vb div[name=body] div[name*=row]').last();
+    //    let newRowNumber = parseInt(rowNumber) + parseInt(1);
+    //    //lastRow.find('input[name=rowId]').val(newRowNumber);
+    //    //APPEND AND REPLACE NUM//
+    //    //WORK!! THIS LINE...//$('div#ac8032-vb div[name=body]').append('<div name="row-' + newRowNumber + '">' + rowHtml + '</div>');
+    //    let newDivRowHtml = ('<div name="row-' + newRowNumber + '">' + rowHtml + '</div>');
+    //    const re = /\[\d+\]/gm;
+    //    newDivRowHtml = newDivRowHtml.replace(re, '[' + newRowNumber + ']');
+    //    //REPLACE FUNCTION ARGUMENT(S)//
+    //    newDivRowHtml = newDivRowHtml.replace('vbACIDchange(0', 'vbACIDchange(' + newRowNumber.toString());
+    //    newDivRowHtml = newDivRowHtml.replace('vbSBIDchange(0', 'vbSBIDchange(' + newRowNumber.toString());
+    //    ////$('div#ac8032-vb div[name=body] div[name=row]').last().html(lastRow.html().replace(re,'['+ newRowNumber +']'));
+    //    ////console.log($('div#ac8032-vb div[name=body] div[name=row]').last().html());
+    //    //$('div#ac8032-vb div[name=body] div[name*=row]').last().html(newRow);
+    //    //$('div#ac8032-vb div[name=body] div[name*=row]').last().find('input:not([name=rowId])').val();
+    //    ////$('div#ac8032-vb div[name=body] div[name=row] input:not([class=rowId])').val('');
+    //    $('div#ac8032-vb div[name=body]').append(newDivRowHtml);
+    //}
+    function TPIDchange() {
+        //傳票號碼 修改//
+        if (jQuery('#TPID').val() =='請選擇' ) {
+            jQuery('#SQID').val('');
+            return false;
+        }
+let tpid = ($('#TPID').val());
+        var data = { "TPID": tpid, "DATE": $('#DATE').val() };
+         jQuery.get('@Url.Action("QueryACHD_SQID", "Voucher")', data, 'json')
+                .done(function (data) {
+                    jQuery('div#ac8032-vh #SQID').val(data.data);
+	            }).fail(function () {
+		            alert('作業異常!')
+                }).always(function () {
+                    //alert('always hit');
+                });
+    }
+    function achdSBIDchange(sbid) {
+        var data = { "ACID": "1103", "SBID": sbid };
+        jQuery.get('@Url.Action("QuerySBNM", "Voucher")', data, 'json')
+                .done(function (data) {
+                    jQuery('div#ac8032-vh #SBID-chName').val(data.data);
+                    //console.log(data.data);
+	            }).fail(function () {
+		            alert('作業異常!')
+                }).always(function () {
+                    //alert('always hit');
+                });
+    }
+    function vbACIDchange(row, acid) {
+        //alert(acid);
+        var data = { "ACID": acid };
+        jQuery.get('@Url.Action("QueryACNM", "Voucher")', data, 'json')
+                .done(function (data) {
+                    //ACBDList[0].ACID_NAME
+                    jQuery('div#ac8032-vb div[name=row-' + row + '] [name*=ACID_NAME]').val(data.data);
+                    jQuery('div#ac8032-vb div[name=row-' + row + '] input[name*=SBID]').attr('acid', acid);
+                    jQuery('div#ac8032-vb div[name=row-' + row + '] input[name*=ITID]').attr('acid', acid);
+                    //指定SQNO//
+                    if (acid == null || acid == "") {
+                        $('div#ac8032-vb div[name=body] div[name=row-' + row + '] input.field-sqno').val('');
+                        //清除細目表//
+                        //$('div#ac8032-bj input').val('');//
+                        $('div#ac8032-bj input').attr('disabled','disabled');
+                    }
+                    else {
+                        var SQNO = parseInt(row) + parseInt(1);
+                        var sqnoStr = ('000' + SQNO.toString()).substr(('000' + SQNO.toString()).length - 3, 3);
+                        $('div#ac8032-vb div[name=body] div[name=row-' + row + '] input.field-sqno').val(sqnoStr);
+                        $('div#ac8032-bj input').removeAttr('disabled');
+                    }
+                    //指定SQNO//END//
+	            }).fail(function () {
+		            alert('作業異常!')
+                }).always(function () {
+                    //alert('always hit');
+                });
+    }
+    function vbSBIDchange(row, acid, sbid) {
+        //alert(acid);
+        //alert('row:'+ row);
+        var data = { "ACID": acid, "SBID": sbid };
+        jQuery.get('@Url.Action("QuerySBNM", "Voucher")', data, 'json')
+                .done(function (data) {
+                    //alert(data.data);
+                    //ACBDList[0].ACID_NAME
+                    jQuery('div#ac8032-vb div[name=row-' + row + '] [name*=SBID_NAME]').val(data.data);
+                    jQuery('div#ac8032-vb div[name=row-' + row + '] input[name*=ITID]').attr('sbid', sbid);
+	            }).fail(function () {
+		            alert('作業異常!')
+                }).always(function () {
+                    //alert('always hit');
+                });
+    }
+    function vbITIDchange(row,acid, sbid, itid) {
+        var data = { "ACID": acid, "SBID": sbid, "ITID": itid };
+        jQuery.get('@Url.Action("QueryITNM", "Voucher")', data, 'json')
+                .done(function (data) {
+                    //ACBDList[0].ACID_NAME
+                    jQuery('div#ac8032-vb div[name=row-' + row + '] [name*=ITID_NAME]').val(data.data);
+	            }).fail(function () {
+		            alert('作業異常!')
+                }).always(function () {
+                });
+    }
+    function chkSubmit() {
+        //$('#DATE').val(($('#DATE').val().substr(0, 4) + '-' + $('#DATE').val().substr(4, 2) + '-' + $('#DATE').val().substr(6, 2)));
+        //$('form').submit();
+        //let date = $('#DATE').val().replace(/-/g, '');
+        //$('#DATE').val(date);
+    }
+</script>
+
+HTML BODY
+<h2>傳票</h2>
+@using (Html.BeginForm("Create", "Voucher", FormMethod.Post, new { @id="fform"}))
+{
+    @Html.AntiForgeryToken()
+    <div id="ac8032">
+        <h4></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div id="ac8032-whole-vcher">
+            voucher Head
+            <div id="ac8032-vh">
+                <div class="row">
+
+                    <div class="form-inline">
+                        <div class="form-group col-md-3 left-col">
+                            <label for="DATE" class="">日期</label>
+                            <input type="text" name="DATE" class="form-control" id="DATE" value="@Model.DATE.GetDateTimeFormats(new System.Globalization.CultureInfo("ja-JP"))[4]" onchange="TPIDchange()">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+                            @Html.ValidationMessageFor(model => model.DATE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-group middle-col">
+                            <label for="SBID">性質</label>
+                            <div class="form-inline">
+                                <input type="text" name="SBID" class="form-control" id="SBID" placeholder="" onchange="achdSBIDchange(this.value)" value="@Model.SBID">
+                                <input type="text" name="SBID-chName" id="SBID-chName" value="" class="form-control" style="" readonly="readonly" />
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SBID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3 right-col">
+                            <label>支票號碼</label>
+                            <input type="text" name="CKID" class="form-control" id="CKID" placeholder="" value="@Model.CKID">
+                            @Html.ValidationMessageFor(model => model.CKID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="form-group col-md-3 left-col">
+                            <label for="TPID" class="">傳票</label>
+                            <select name="TPID" class="form-control" id="TPID" onchange="TPIDchange()">
+                                <option value="請選擇" @((Model.TPID == "" | Model.TPID == null) ? "seleted" : "")>請選擇</option>
+                                <option value="現入" @(Model.TPID == "現入" ? "seleted" : "")>現入</option>
+                                <option value="現支" @(Model.TPID == "現支" ? "seleted" : "")>現支</option>
+                                <option value="轉帳" @(Model.TPID == "轉帳" ? "seleted" : "")>轉帳</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.TPID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-group middle-col">
+                            <label for="NOTE">收(付)款人</label>
+                            <input type="text" name="NOTE" class="form-control" id="NOTE" placeholder="">
+                            @Html.ValidationMessageFor(model => model.NOTE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3 right-col">
+                            <label class="">金額</label>
+                            <input type="text" name="CKAM" class="form-control" id="CKAM" placeholder="" readonly="">
+                            @Html.ValidationMessageFor(model => model.CKAM, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="form-group col-md-3 left-col">
+                            <label class="">號碼</label>
+                            @Html.EditorFor(model => model.SQID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.SQID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+                            <label class="">類別</label>
+                            <select name="JSKD" class="form-control" id="JSKD">
+                                <option selected="selected" value="N">無</option>
+                                <option value="B">不統計:開帳</option>
+                                <option value="C">不統計:調整</option>
+                                <option value="1">非支存分錄</option>
+                                <option value="2">調整計畫編號</option>
+                                <option value="3">不入現金收支表</option>
+                                <option value="I">工程款2聯發票</option>
+                                <option value="J">工程款3聯發票</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.JSKD, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+                            <label class="">非工程發票類別</label>
+                            <select name="NIKD" id="NIKD" class="form-control">
+                                <option value="N" selected="selected">無</option>
+                                <option value="A">非工程款2聯發票</option>
+                                <option value="B">非工程款3聯發票</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.NIKD, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3 right-col">
+                            <label class="">支票</label>
+                            @Html.EditorFor(model => model.NIKD, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NIKD, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            暫且輸入面板(待移除)
+            <div id="ac8032-temp-input" hidden>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="col-md-3 form-group left-col">
+                            <label for="ACID" class="">ACID</label>
+                            <input type="text" name="ACID" class="form-control" id="ACID" placeholder="">
+                            @Html.ValidationMessageFor(model => model.ACID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="CKYM">CKYM</label>
+                            <input type="text" name="CKYM" class="form-control" id="CKYM" placeholder="">
+                            @Html.ValidationMessageFor(model => model.CKYM, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>PSID/過帳別(O:X)/</label>
+                            <input type="text" name="PSID" class="form-control" id="PSID" placeholder="">
+                            @Html.ValidationMessageFor(model => model.PSID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>TPID/傳票類別/現入/現出/轉帳</label>
+                            <input type="text" name="TPID" class="form-control" id="TPID" placeholder="">
+                            @Html.ValidationMessageFor(model => model.TPID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            voucher Body
+            <div id="ac8032-vb">
+                <div class="row form-inline">
+                    <div name="head">
+                        <div class="form-group rowId" style="display:none">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-acid">
+                            <label>科目</label>
+                        </div>
+
+                        <div class="form-group lb-field-acidname">
+                            <label>名稱</label>
+                        </div>
+
+                        <div class="form-group lb-field-sbid">
+                            <label>性質</label>
+                        </div>
+
+                        <div class="form-group lb-field-sbidname">
+                            <label>名稱</label>
+                        </div>
+
+                        <div class="form-group lb-field-sqno">
+                            <label>序號</label>
+                        </div>
+
+                        <div class="form-group lb-field-itid">
+                            <label>細目</label>
+                        </div>
+
+                        <div class="form-group lb-field-itidname">
+                            <label>名稱</label>
+                        </div>
+
+                        <div class="form-group lb-field-note">
+                            <label>備註</label>
+                        </div>
+
+                        <div class="form-group lb-field-damt">
+                            <label>借方金額</label>
+                        </div>
+
+                        <div class="form-group lb-field-camt">
+                            <label>貸方金額</label>
+                        </div>
+                    </div>
+                    <div name="body">
+                        <div name="row-0" class="row-">
+                            <div class="form-group" style="display:none">
+                                <input type="hidden" class="rowId" name="rowId" value="0" />
+                            </div>
+                            <div class="form-group left-col">
+                                <input type="text" class="field-acid" name="ACBDList[0].ACID" onchange="vbACIDchange(0,this.value)" onfocus="onVbACIDfocus(0)" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-acidname" name="ACBDList[0].ACID_NAME" value="" readonly="readonly" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-sbid" name="ACBDList[0].SBID" acid="" onchange="vbSBIDchange(0,$(this).attr('acid'),this.value)" value="" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-sbidname" name="ACBDList[0].SBID_NAME" value="" readonly="readonly" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-sqno" name="ACBDList[0].SQNO" value="" readonly="readonly" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[0].ITID" onchange="vbITIDchange(0, $(this).attr('acid'), $(this).attr('sbid'), this.value)" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-itidname" name="ACBDList[0].ITID_NAME" value="" readonly="readonly" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-note" name="ACBDList[0].NOTE" value="" />
+                            </div>
+                            <div class="form-group middle-col">
+                                <input type="text" class="field-damt" name="ACBDList[0].DAMT" value="" />
+                            </div>
+                            <div class="form-group right-col">
+                                <input type="text" class="field-camt" name="ACBDList[0].CAMT" value="" />
+                            </div>
+                        </div>
+                        <div name="row-1">
+                                <div class="form-group" style="display:none">
+                                    <input type="hidden" class="rowId" name="rowId" value="1" />
+                                </div>
+                                <div class="form-group left-col">
+                                    <input type="text" class="field-acid" name="ACBDList[1].ACID" onchange="vbACIDchange(1,this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-acidname" name="ACBDList[1].ACID_NAME" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbid" name="ACBDList[1].SBID" acid="" value="" onchange="vbSBIDchange(1,$(this).attr('acid'),this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbidname" name="ACBDList[1].SBID_NAME" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sqno" name="ACBDList[1].SQNO" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[1].ITID" value="" onchange="vbITIDchange(1, $(this).attr('acid'), $(this).attr('sbid'), this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itidname" name="ACBDList[1].ITID_NAME" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-note" name="ACBDList[1].NOTE" value="" />
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-damt" name="ACBDList[1].DAMT" value="" />
+                                </div>
+                                <div class="form-group right-col">
+                                    <input type="text" class="field-camt" name="ACBDList[1].CAMT" value="" />
+                                </div>
+                            </div>
+                            <div name="row-2">
+                                <div class="form-group" style="display:none">
+                                    <input type="hidden" class="rowId" name="rowId" value="2" />
+                                </div>
+                                <div class="form-group left-col">
+                                    <input type="text" class="field-acid" name="ACBDList[2].ACID" onchange="vbACIDchange(2,this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-acidname" name="ACBDList[2].ACID_NAME" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbid" name="ACBDList[2].SBID" value="" acid="" onchange="vbSBIDchange(2,$(this).attr('acid'),this.value)"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sbidname" name="ACBDList[2].SBID_NAME" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-sqno" name="ACBDList[2].SQNO" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itid" acid="" sbid="" name="ACBDList[2].ITID" value="" onchange="vbITIDchange(2, $(this).attr('acid'), $(this).attr('sbid'), this.value)" />
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-itidname" name="ACBDList[2].ITID_NAME" value="" readonly="readonly"/>
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-note" name="ACBDList[2].NOTE" value="" />
+                                </div>
+                                <div class="form-group middle-col">
+                                    <input type="text" class="field-damt" name="ACBDList[2].DAMT" value="" />
+                                </div>
+                                <div class="form-group right-col">
+                                    <input type="text" class="field-camt" name="ACBDList[2].CAMT" value="" />
+                                </div>
+                            </div>
+                    </div>
+                    <div name="foot">
+                        <div class="form-group rowId" style="display:none">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-acid">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-acidname">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-sbid">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-sbidname">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-sqno">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-itid">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-itidname">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-note">
+                            <label></label>
+                        </div>
+
+                        <div class="form-group lb-field-damt">
+                            <label>借方金額</label>
+                        </div>
+
+                        <div class="form-group lb-field-camt">
+                            <label>貸方金額</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default" value="新增" onclick="addRowACBD()">新增</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div id="data-house">
+                <input type="text" name="rowId" id="dataId" value="K" />
+                <input type="text" name="currRowId" id="currRowId" value="00" />
+                <div id="data-house-acbj">
+                    <input type="text" name="ACBJList" value="" />
+                    <input type="text" name="ACBJListStr" value="" />
+                    <input type="text" name="ACBJListJson" value="" />
+                    <input type="text" name="row" value="" />
+                </div>
+        </div>
+
+        voucher BJ
+                    <div id="ac8032-bj">
+                        <div class="row">
+                            <div class="form-inline">
+                                <div name="head">
+                                    <div class="form-group rowId" style="display:none">
+                                        <label></label>
+                                    </div>
+
+                                    <div class="form-group lb-field-pjid">
+                                        <label>計畫編號</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-pjsq">
+                                        <label>序號</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-damt">
+                                        <label>借方金額</label>
+                                    </div>
+                                    <div class="form-group lb-field-camt">
+                                        <label>貸方金額</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-ivam">
+                                        <label>未稅金額</label>
+                                    </div>
+
+                                    <div class="form-group lb-field-ivid">
+                                        <label>部門/發票號碼</label>
+                                    </div>
+                                </div>
+                                <div name="body">
+                                    <div id="ac8032-bj-body">
+                                        <div name="row-0">
+                                            <div class="display:none">
+                                                <input type="hidden" class="rowId" name="rowId" value="0" disabled />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-pjid" name="ACBJList[0].PJID" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-pjsq" name="ACBJList[0].PJSQ" value="" readonly="readonly" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-damt" name="ACBJList[0].DAMT" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-camt" name="ACBJList[0].CAMT" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-ivam" name="ACBJList[0].IVAM" value="" />
+                                            </div>
+                                            <div class="form-group middle-col">
+                                                <input type="text" class="field-ivid" name="ACBJList[0].IVID" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default" value="新增" onclick="addRowACBJ()">新增</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        <br />
+
+        VALIDATE BALENCE
+        <div id="validate-panel">
+            <div>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="form-group col-md-3 left-col">
+                            <input class="form-control" type="text" value="PROJ借方">
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+
+                            <div class="btn btn-default" style="width: 100%;">印表</div>
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+                            <input class="form-control" style="text-align: center;" type="text" placeholder="" value="2018 年">
+                        </div>
+                        <div class="form-group col-md-3 right-col">
+                            <input class="form-control" type="text" value="現收:10802009 - 05">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="col-md-3 form-group left-col">
+                            <input class="form-control" type="text" value="PROJ貸方">
+                        </div>
+                        <div class="col-md-3 form-group middle-col">
+                            <input class="btn btn-default" style="width: 100%;" type="button" placeholder="" value="調整分錄產生作業">
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+                            <input class="form-control" style="text-align: center;" type="text" placeholder="" value="類別 1">
+                        </div>
+                        <div class="form-group col-md-3 right-col">
+                            <input class="form-control" type="text" value="現支:10702018 - 06">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="form-group col-md-3 left-col">
+                            <input class="form-control" type="text" value="借貸平衡" name="DC-blns">
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+                            <input class="btn btn-default" style="width: 100%;" type="button" placeholder="" value="其他分錄印表">
+                        </div>
+                        <div class="form-group col-md-3 middle-col">
+                        </div>
+                        <div class="form-group col-md-3 right-col">
+                            <input class="form-control" type="text" value="轉帳:10702018 - 06">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        action command panel
+        <div id="act">
+            <div class="row">
+                <div class="col-md-12 form-inline">
+                    <div name="button-border-query" style="display: inline-block;">
+                        <input type="button" name="query" value="查詢" class="btn btn-default" />
+                    </div>
+                    <div name="button-border-cquery" style="display: inline-block;">
+                        <input type="button" name="cquery" value="取消查詢" class="btn btn-default" />
+                    </div>
+                    <div name="button-border-create" style="display: inline-block;">
+                        <input type="button" name="create" value="新增" class="btn btn-default" />
+                    </div>
+                    <div name="button-border-update" style="display: inline-block;">
+                        <input type="button" name="update" value="修改" class="btn btn-default" />
+                    </div>
+                    <div name="button-border-delete" style="display: inline-block;">
+                        <input type="button" name="delete" value="刪除" class="btn btn-default" />
+                    </div>
+                    <div style="display: inline-block;">
+                        <input name="submit" type="submit" value="存檔" class="btn btn-danger" />
+                    </div>
+                    <div style="display: inline-block;">
+                        <input name="reset" type="reset" value="回復" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+SCRIPT
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DATE').datepicker({ format: "yyyy-mm-dd", autoclose: true });
+        acbjArr = [];
+        //jQuery('#validate-panel [name=DC-blns]').change(function () {
+        //    if ($(this).val() == 'x' || $(this).val() == 'X') {
+        //        $(this).addClass('red-bg');
+        //    }
+        //    else {
+        //        $(this).removeClass('red-bg');
+        //    }
+        //});
+        jQuery('div#act input[type=button]:not([value=存檔])').click(function () {
+            if (confirm('畫面資料將被清除!! 請確定？')) {
+                jQuery('#ac8032-whole-vcher input').val('');
+                //how to parent html tag?
+                jQuery('div#act div[name*=button-border-]').removeClass('active-button');
+                $(this).parent().addClass('active-button');
+                //jQuery('div[name*=button-border-]').removeClass('active-button');
+                //$(this).addClass('active-button');
+                //尚未完成以下!//
+                //jQuery('div[name*=button-border-]').addClass('btn-default');
+                //jQuery(this).removeClass('btn-default');
+                //jQuery(this).addClass('btn-warning');
+                let action = $(this).val();
+                switch (action)
+                {
+                    case '新增':
+                        //alert('create');
+                        jQuery('form').attr('action', '/Voucher/Create');
+                        jQuery(this).parent().parent().find('input[name=submit]').removeAttr('disabled');
+                        jQuery(this).parent().parent().find('input[name=reset]').removeAttr('disabled');
+                        jQuery('#TPID').val('');
+                        break;
+                    case '修改':
+                        jQuery('form').attr('action', '/Voucher/Edit');
+                        jQuery(this).parent().parent().find('input[name=submit]').removeAttr('disabled');
+                        jQuery(this).parent().parent().find('input[name=reset]').removeAttr('disabled');
+                        break;
+                    case '刪除':
+                        jQuery('form').attr('action', '/Voucher/Delete');
+                        jQuery(this).parent().parent().find('input[name=submit]').removeAttr('disabled');
+                        jQuery(this).parent().parent().find('input[name=reset]').removeAttr('disabled');
+                        break;
+                    case '查詢':
+                        jQuery('form').attr('action', '/Voucher/Query');
+                        jQuery(this).parent().parent().find('input[name=submit]').attr('disabled', 'disabled');
+                        jQuery(this).parent().parent().find('input[name=reset]').attr('disabled', 'disabled');
+                        break;
+                    case '取消查詢':
+                        jQuery('form').attr('action', '/Voucher/Query');
+                        jQuery(this).parent().parent().find('input[name=submit]').attr('disabled', 'disabled');
+                        jQuery(this).parent().parent().find('input[name=reset]').attr('disabled', 'disabled');
+                        //jQuery('#ac8032-whole-vcher input').val('');
+                        break;
+                }
+            }
+            else {
+                //DO NOTHING//
+            }
+        });
+        jQuery('div[name*=button-border-query]').click(function () {
+            //alert('');
+            //query data//
+            var data = {};
+            jQuery.get('@Url.Action("QueryACHD", "Voucher")', data, 'json')
+                .done(function (data) {
+                    //ac8032-vb
+                    //alert(data);
+	            }).fail(function () {
+		            alert('作業異常!')
+                }).always(function () {
+                    //alert('always hit');
+                });
+            // and update all view//
+        });
+        jQuery('div[name*=button-border-cquery]').click(function () {
+            //cancel query >>  clean input to empty, set to default query >> update view//
+        });
+        jQuery('div[name*=button-border-delete]').click(function () {
+            //clean blankets, alert, and HIGHLIGHT selectED row, promp confirm ('確認刪除?')?
+        });
+        jQuery('div[name*=button-border-update]').click(function () {
+            //enable inputS,//
+            //clean blankets, alert, and HIGHLIGHT selectED row, promp confirm ('確認...?')?
+        });
+        jQuery('div#act input[name=create]').click(function () {
+            //CLEAN ALL BLANKETS//
+            //CONFIRM PROMP//
+        });
+        $('input[name=submit]').click(function () {
+            //alert('Here is the serialized data!\n' + $(document.forms[0]).serialize());
+            console.log($(document.forms[0]).serialize());
+            //console.log($(document).serialize());
+        });
+        $('form').on('submit', function () {
+            
+        });
+        //$('form').on('')
+        //DOING:自動帶入中文科目性質名稱//
+        //$('#ac8032-vb input.field-acid[name*=ACID]').on('change', function () {
+        //    alert('hit');
+        //    //rowId, acid
+        //    var rowNum = $(this).parent().parent().find('input[name=rowId]').val();
+        //    alert(rowNum);
+        //            //var data = {"ACID":acid};
+        //jQuery.get('@Url.Action("QueryACNM", "Voucher")', data, 'json')
+        //        .done(function (data) {
+        //            //alert(rowId);
+        //            //jQuery('#ac8032-vb div[name=body] div[name=row] input[value='+rowId+']').parent('div[name=row]').find('input[name*=ACID_NAME]').val(data.data);
+        //            jQuery('#ac8032-vb div[name=body] div[name=row] input[value=0]').parent().parent().find('input[name*=ACID_NAME]').val(data.data);
+	    //        }).fail(function () {
+		//            alert('作業異常!')
+        //        }).always(function () {
+        //            //alert('always hit');
+        //        });
+        //    }
+        //});
+        //document.getElementsByTagName('input').forEach(function () {
+        //
+        //});//.getElementsByClassName("field-acid");//.forEach(function (e) {
+        //    //alert('123');
+        //    //ACBDEditNewRow(e);
+        ////});//getElementBy"btnAddACBDRow").addEventListener("blur", function (e) {
+        ////('#ac8032-bj button').addeven
+        //NOT BEST COD...//
+        //$('#ac8032-vb div[name*=row]').focusout(function () { alert('newww'); })
+        //    //on('blur', function () { alert('KK') });
+        //$('#ac8032-vb div[name=body] div[name*=row]').on('blur', function () {
+        //    var rownum = $(this).parent().parent().find('input[name=rowId]').val();
+        //    alert(rownum);
+        //
+        //
+        //});
+        //document.addEventListener("D",)
+        //document.getElementsByName("row")//.getElementById("").addEventListener
+        //$(eleS).each(function (this) {
+        //    this.addEventListener('focus',alert('foCS!!'))
+        //})
+        ////$('#ac8032-vb div[name*=row]')
+        //$('#ac8032-vb input[name*=ACID]').on('blur', function (e) {
+        //    alert(e.name);
+        //    //alert(e.name);
+        //    //console.log(e.parent().parent().find('input[name=rowId]').val());
+        //})
+        //console.log(document.getElementById('ac8032-bj-body').length);
+        document.getElementById('ac8032-bj-body').addEventListener('focusout', function (e) {
+            var elements = $('#ac8032-bj-body input');
+            var obj = {};
+            for (var i = 0; i < elements.length; i++) {
+                obj[elements[i].name] = elements[i].value;
+            }
+            var dataStr = JSON.stringify(obj);
+            //console.log('dataStr:' + dataStr);
+            var findrow = $('#data-house #data-house-acbj #row-' + $('#currRowId').val()).length;
+            if (findrow === 0) {
+                var htmlrow = '<div id="row-' + $('#currRowId').val() + '"></div>';
+                console.log(htmlrow);
+                $('#data-house #data-house-acbj').append(htmlrow);
+                console.log(dataStr);
+                $('#data-house #data-house-acbj #row-' + $('#currRowId').val()).html(dataStr);
+                //alert('done');
+            }
+            else {
+                $('#data-house #data-house-acbj #row-' + $('#currRowId').val()).html(dataStr);
+            }
+            //INPUT ELEMENT//
+            var dataCount = $('#data-house #data-house-acbj div').length;
+            //console.log(datac);
+            var ListStr = "";
+            //var inputEleHtmlJson = '<input name=ACBJListJson />';
+            //$('#data-house-acbj').append(inputEleHtml);
+            //var inputEleHtmlStr = '<input type=text name=ACBJListStr />';
+            //$('#data-house-acbj').append(inputEleHtmlStr);
+            for (var i = 0; i < dataCount; i++) {
+                ListStr += $('#data-house-acbj #row-' + i).html();
+            }
+            //$('#data-house-acbj input[name=ACBJListStr]').val(inputEleHtmlStr);
+            $('#data-house-acbj input[name=ACBJListStr]').val(ListStr.replace('"rowId":"",',''));
+            //var ListJson = $('#data-house-acbj ')
+            var jjson = {};
+            for (var i = 0; i < dataCount; i++) {
+                ListStr += $('#data-house-acbj #row-' + i).html();
+            }
+            //INPUT ELEMENT//END//
+        }, false);
+        ////TESTING..//
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////$('#row-0').val($('#ac8032-bj input').serialize());
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //var elements = $('#ac8032-bj input');
+        //var obj = {};
+        //for (var i = 0; i < elements.length; i++) {
+        //    obj[(elements[i].name)] = elements[i].value;
+        //}
+        //var jj = JSON.stringify(obj);
+        //$('#row-0-t').val(jj);
+        //
+        //$('#row-0').val(jj);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////$.parseJSON($('#row-0').val());
+        //console.log(jj);
+        //console.log(obj);
+        document.getElementById("fform").addEventListener('submit', function (e) {
+            alert('B4 SUNMIT!');
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // !!放在 頂上的SCRIPT區域!! //
+        // !!放在 頂上的SCRIPT區域!! //
+        // !!放在 頂上的SCRIPT區域!! //
+        //計算表頭金額CKAM
+        //VB計算借方總金額
+            //>每當VB中有輸入金額欄位時候都會觸發(借方、貸方分別兩函數) >>再按下新增按鈕的時候 自己隨HTML碼 加入onclick事件。
+        //$('$ac8032-vb')
+        //VB計算貸方總金額
+            //>每當VB中有輸入金額欄位時候都會觸發(借方、貸方分別兩函數) >>再按下新增按鈕的時候 自己隨HTML碼 加入onclick事件。
+        //VB計算總筆數
+            //>>VB按下新增按鈕的時候 自己隨HTML碼 加入onclick事件。
+            //vbTotalCounts
+        //BJ計算借方總金額
+            //>每當VB中有輸入金額欄位時候都會觸發(借方、貸方分別兩函數) >>再按下新增按鈕的時候 自己隨HTML碼 加入onclick事件。
+        
+        //BJ計算貸方總金額
+            //>每當VB中有輸入金額欄位時候都會觸發(借方、貸方分別兩函數) >>再按下新增按鈕的時候 自己隨HTML碼 加入onclick事件。
+        //BJ計算總筆數
+            //>每當VB中有輸入金額欄位時候都會觸發(借方、貸方分別兩函數) >>再按下新增按鈕的時候 自己隨HTML碼 加入onclick事件。
+            //bjTotalCounts
+    });
+</script>
