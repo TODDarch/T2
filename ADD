@@ -1,4 +1,101 @@
 acBD
 <div name="foot">
 
-acBJ
+
+
+
+
+
+
+ADD 2 CONTROLLER:----------------------------------------------------------------------------------------------------
+
+//Rextester.Program.Main is the entry point for your code. Don't change it.
+//Compiler version 4.0.30319.17929 for Microsoft (R) .NET Framework 4.5
+
+using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+//using Newtonsoft.Json.Convert;
+
+namespace Rextester
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {   
+            string ACBJListStr = "{\"ACBJList[0].PJID\":\"11\",\"ACBJList[0].PJSQ\":\"\",\"ACBJList[0].DAMT\":\"12\",\"ACBJList[0].CAMT\":\"13\",\"ACBJList[0].IVAM\":\"14\",\"ACBJList[0].IVID\":\"15\",\"ACBJList[1].PJID\":\"22\",\"ACBJList[1].PJSQ\":\"\",\"ACBJList[1].DAMT\":\"22\",\"ACBJList[1].CAMT\":\"23\",\"ACBJList[1].IVAM\":\"24\",\"ACBJList[1].IVID\":\"25\"}";
+            //string json22a = json22.Replace("ACBJList","");
+            var jsonObj3 = JsonConvert.DeserializeObject<JObject>(ACBJListStr);
+            
+            Console.WriteLine(jsonObj3);
+                //Console.WriteLine(jsonObj3.PJID);
+            //Console.WriteLine(jsonObj3.Count);
+            //Console.WriteLine(jsonObj3.Count());
+            //Console.WriteLine(jsonObj4);
+            
+            List<ACBJ> acbjList = new List<ACBJ>();
+            int rows = (jsonObj3.Count/6);
+            for (int i = 0;i<rows;i++)
+            {
+                acbjList.Add(new ACBJ());
+            }
+            //foreach(var item in acbjList.Select((x,i)=> new {idx = i, x = x}))
+            //{
+                
+            //}
+            int currentRowIndex = 0;
+            //foreach(var item in jsonObj3.Select((x,i)=> new {index = i, v = x}))
+            foreach(var item in acbjList)
+            {   
+                string keyNmePre = "";
+                keyNmePre = string.Format("ACBJList[{0}].{1}", currentRowIndex,"PJID");
+                acbjList[currentRowIndex].PJID = jsonObj3[keyNmePre].ToString();
+                
+                //keyNmePre = string.Format("ACBJList[{0}].{1}", currentRowIndex,"PJSQ");
+                //acbjList[currentRowIndex].PJSQ = jsonObj3[keyNmePre].ToString();
+                
+                keyNmePre = string.Format("ACBJList[{0}].{1}", currentRowIndex,"DAMT");
+                acbjList[currentRowIndex].DAMT = jsonObj3[keyNmePre].ToString();
+                
+                //keyNmePre = string.Format("ACBJList[{0}].{1}", currentRowIndex,"CAMT");
+                //acbjList[currentRowIndex].CAMT = jsonObj3[keyNmePre].ToString();
+                
+                keyNmePre = string.Format("ACBJList[{0}].{1}", currentRowIndex,"IVAM");
+                acbjList[currentRowIndex].IVAM = jsonObj3[keyNmePre].ToString();
+                
+                //keyNmePre = string.Format("ACBJList[{0}].{1}", currentRowIndex,"IVID");
+                //acbjList[currentRowIndex].IVID = jsonObj3[keyNmePre].ToString();
+                
+                
+                //////acbjList[currentRowIndex].IVAM = jsonObj3[string.Format("ACBJList[{0}].{1}", currentRowIndex,"IVAM")];
+                //////acbjList[currentRowIndex].IVID = jsonObj3[string.Format("ACBJList[{0}].{1}", currentRowIndex,"IVAM")];
+                ////
+                ////
+                ////string IVAM = string.Format("{0}PJID",keyNmePre);
+                ////acbjList[currentRowIndex].PJID = jsonObj3[keyname];
+                ////
+                ////string  = string.Format("{0}PJID",keyNmePre);
+                
+                currentRowIndex++;
+            }
+            
+            foreach(var item in acbjList)
+            {
+                Console.WriteLine(item.PJID);
+                Console.WriteLine(item.DAMT);
+                Console.WriteLine(item.IVAM);
+            }
+        }
+        
+        
+        
+        public class ACBJ
+        {
+            public string PJID{get; set;}
+            public string DAMT{get; set;}
+            public string IVAM{get; set;}
+        }
+    }
+}
+END----------------------------------------------------------------------------------------------------END
