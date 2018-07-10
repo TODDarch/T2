@@ -1,0 +1,38 @@
+﻿@model IEnumerable<AnnualLeaveScheduleV1.Models.ACHD>
+
+<script>
+    function btnQueryAga() {
+        $('#ac8032').show();
+        $('#ac8032-q').hide();
+    }
+</script>
+<p>
+    <button type="button" onclick="btnQueryAga()">重新查詢</button>
+</p>
+<table class="table" id="tb-ticList">
+    <thead>
+        <tr class="tbHead">
+            <th>
+                傳票別
+            </th>
+            <th>
+                傳票號碼
+            </th>
+            <th>
+                日期
+            </th>
+            <th>
+                銀行帳號
+            </th>
+            <th>
+                支票號碼
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {  }
+    </tbody>
+</table>
